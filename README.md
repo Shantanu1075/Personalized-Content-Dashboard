@@ -18,7 +18,7 @@ The dashboard is driven by user preferences, persistent local settings, and a mi
 ## 🎥 Demo Video
 
 <video controls width="100%">
-  <source src="./public/demo/demo.mp4" type="video/mp4">
+  <source src="./public/demo/personalized-content-dashboard-demo.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
