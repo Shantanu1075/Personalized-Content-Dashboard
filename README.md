@@ -11,11 +11,16 @@ The dashboard is driven by user preferences, persistent local settings, and a mi
 
 ## Live Demo
 
-Coming 
+👉 **[View Live Application](https://personalized-content-dashboard-omega.vercel.app/)**
 
 ## Demo Video
 
-Coming soon.
+## 🎥 Demo Video
+
+<video controls width="100%">
+  <source src="./public/demo/demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## Features
 
