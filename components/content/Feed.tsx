@@ -73,6 +73,7 @@ export default function Feed() {
 
   const [newsPage, setNewsPage] = useState(1);
   const [moviePage, setMoviePage] = useState(1);
+  const [feedId] = useState("personalized-feed");
   const [newsPages, setNewsPages] = useState<Record<number, ContentItem[]>>({});
   const [moviePages, setMoviePages] = useState<Record<number, ContentItem[]>>({});
   const [newsMeta, setNewsMeta] = useState({ totalResults: 0 });
@@ -86,17 +87,12 @@ export default function Feed() {
   const requestedMoviePagesRef = useRef<Record<number, boolean>>({});
   const sentinelRef = useRef<HTMLDivElement | null>(null);
   const feedRootRef = useRef<HTMLDivElement | null>(null);
-  const mountCountRef = useRef(0);
 
   useEffect(() => {
-    mountCountRef.current += 1;
-  }, []);
-  const feedIdRef = useRef<string>(Math.random().toString(36).slice(2));
-  useEffect(() => {
     if (feedRootRef.current) {
-      feedRootRef.current.setAttribute('data-feed-id', feedIdRef.current);
+      feedRootRef.current.setAttribute("data-feed-id", feedId);
     }
-  }, []);
+  }, [feedId]);
   const triggerNewsPageRef = useRef<ReturnType<typeof useLazyGetNewsQuery>[0] | null>(null);
   const triggerMoviePageRef = useRef<ReturnType<typeof useLazyGetMoviesQuery>[0] | null>(null);
   const fetchNewsPageRef = useRef<((page: number) => Promise<unknown> | null) | null>(null);
@@ -343,7 +339,7 @@ export default function Feed() {
   const error = newsError || movieError || social.error;
 
   return (
-    <div ref={feedRootRef} data-feed-mount={mountCountRef.current} className="h-full min-h-0 overflow-y-auto">
+    <div ref={feedRootRef} className="h-full min-h-0 overflow-y-auto">
       <div className="space-y-10">
       <section className="overflow-hidden rounded-3xl bg-linear-to-br from-indigo-700 via-indigo-600 to-violet-700 p-6 text-white sm:p-8">
         <p className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-200">Your daily briefing</p>
@@ -364,7 +360,11 @@ export default function Feed() {
           <EmptyState title="No content found" description="Choose more categories in Settings." />
         ) : (
           <>
-            <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} restoreFocus={false}>
+            <DndContext
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+              accessibility={{ restoreFocus: false }}
+            >
               <SortableContext items={displayItems.map((item) => item.id)} strategy={verticalListSortingStrategy}>
                 <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                   {displayItems.map((item) => <SortableCard key={item.id} item={item} />)}

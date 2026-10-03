@@ -8,6 +8,15 @@ This project solves the problem of fragmented content discovery by combining mul
 
 The dashboard is driven by user preferences, persistent local settings, and a mixed content model. News items are sourced from NewsAPI through a Next.js API route, movie content comes from TMDB through a separate route handler, and social posts are served from a local mock dataset. The feed is aggregated in Redux state, rendered through reusable card components, and enhanced with debounced search, infinite scroll, and dark mode.
 
+
+## Live Demo
+
+Coming 
+
+## Demo Video
+
+Coming soon.
+
 ## Features
 
 ### Personalized Feed
@@ -479,17 +488,6 @@ The app follows a minimal, practical security approach consistent with the imple
 - `.env.local` should not be committed to source control
 - no secrets are hard-coded in the repository or documentation
 
-## Screenshots
-
-Screenshots can be added here before final submission.
-
-## Live Demo
-
-Coming soon.
-
-## Demo Video
-
-Coming soon.
 
 ## Future Improvements
 

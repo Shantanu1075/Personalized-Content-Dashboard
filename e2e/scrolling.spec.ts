@@ -9,11 +9,12 @@ test('feed infinite scroll preserves scroll position', async ({ page }) => {
   // Wait for the feed root to mount and expose a stable data attribute
   await page.waitForSelector('[data-feed-id]', { timeout: 5000 });
   const feedRoots = await page.locator('[data-feed-id]').elementHandles();
-  let feedRoot = null;
+  let feedRoot: (typeof feedRoots)[number] | null = null;
+
   for (const el of feedRoots) {
     if (await el.isVisible()) {
       // ensure it contains the Personalized Feed header
-      const contains = await el.evaluate((node) => !!node.querySelector('h2'));
+      const contains = await el.evaluate((node: Element) => node.querySelector('h2') !== null);
       if (contains) {
         feedRoot = el;
         break;
@@ -25,7 +26,11 @@ test('feed infinite scroll preserves scroll position', async ({ page }) => {
 
   // Helper to get scrollTop and scrollHeight
   const getScroll = async () => {
-    return await feedRoot!.evaluate((el) => ({ top: (el as HTMLElement).scrollTop, height: (el as HTMLElement).clientHeight, scrollHeight: (el as HTMLElement).scrollHeight }));
+    return await feedRoot!.evaluate((el: HTMLElement) => ({
+      top: el.scrollTop,
+      height: el.clientHeight,
+      scrollHeight: el.scrollHeight,
+    }));
   };
 
   // Load a few pages by scrolling to bottom repeatedly
@@ -46,7 +51,7 @@ test('feed infinite scroll preserves scroll position', async ({ page }) => {
     expect(cur.scrollHeight).toBeGreaterThan(prevScroll.scrollHeight - 1);
 
     // Ensure feed root did not remount (data-feed-id should remain the same)
-    const feedId = await feedRoot!.evaluate((el) => el.getAttribute('data-feed-id'));
+    const feedId = await feedRoot!.evaluate((el: HTMLElement) => el.getAttribute('data-feed-id'));
     expect(feedId).toBeTruthy();
 
     // Ensure feed didn't jump back to near-zero
