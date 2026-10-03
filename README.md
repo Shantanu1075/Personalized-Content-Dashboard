@@ -17,7 +17,7 @@ The dashboard is driven by user preferences, persistent local settings, and a mi
 
 ## 🎥 Demo Video
 
-[▶️ Watch the Full Project Demo](./public/demo/personalized-content-dashboard-demo.mp4)
+https://github.com/user-attachments/assets/61ef7c14-ff6e-4b1f-98cc-ab0aa7959284
 
 ## Features
 
